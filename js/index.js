@@ -1,57 +1,95 @@
-//create a variable playerSelection to store the Users choice
-const playerSelection = prompt('Please choose Rock, Paper or Scissors?')
-console.log("This is the Player's selection: " + playerSelection);
+let playerScore = 0;
+console.log("Player's current score is: " + playerScore);
 
-//create a function called getComputerChoice that randomly returns 'Rock', 'Paper', or 'Scissors'
-function getComputerChoice() {
-    let choices = ['Rock', 'Paper', 'Scissors'];
-    let selection = choices[Math.floor(Math.random()*choices.length)];
-    return selection;
+let computerScore = 0;
+console.log("Computer's current score is: " + computerScore);
+
+let gameRound = 0;
+console.log("You have played " + gameRound + " rounds.");
+
+while (gameRound < 5) {
+    game();
 }
 
-//create a variable computerSelection to store the Computers choice
+function game() {
+
+const playerSelection = getPlayerChoice();
+
+function getPlayerChoice() {
+    playerTurn = prompt('Please choose Rock, Paper or Scissors?');
+    return playerTurn;
+}
+
 const computerSelection = getComputerChoice();
-console.log("This is Computer's selection: " + computerSelection);
 
-//create a variable to store the player's score
-let playerScore = 0;
-console.log(playerScore);
+function getComputerChoice() {
+    let choices = ['Rock', 'Paper', 'Scissors'];
+    let computerTurn = choices[Math.floor(Math.random()*choices.length)];
+    return computerTurn;
+}
 
-//create a variable to store the computer's score
-let computerScore = 0;
-console.log(computerScore);
+playRound(playerSelection, computerSelection);
 
-//create a variable to store the Round you are currently on.
-let gameRound = 0;
-console.log(gameRound);
-
-//create a function that plays a single round of Rock Paper Scissors
 function playRound(playerSelection, computerSelection) {
     player = playerSelection.toUpperCase();
     computer = computerSelection.toUpperCase();
     if (player === computer) {
-        return "It's a tie!";
+        result = "It's a tie!";
     }
     else if (player == 'ROCK') {
         if (computer == 'SCISSORS') {
-            return "You Won! Rock beats Scissors.";
+            result = "You Won!";
         }else{
-            return "You Lose! Paper beats Rock.";
+            result = "You Lose!";
         }
     }
     else if (player == 'PAPER') {
         if (computer == 'ROCK') {
-            return "You Won! Paper beats Rock.";
+            result = "You Won!";
         }else{
-            return "You Lose! Scissors beats Paper.";
+            result = "You Lose!";
         }
     }
     else if (player == 'SCISSORS') {
         if (computer == 'PAPER') {
-            return "You Won! Scissors beats Paper.";
+            result = "You Won!";
         }else{
-            return "You Lose! Rock beats Scissors.";
+            result = "You Lose!";
         }
     }
+    if (result == "You Won!") {
+        playerScore++;
+        gameRound++;
+    }
+    else if (result == "You Lose!") {
+        computerScore++;
+        gameRound++;
+    }
+    else {
+        playerScore++;
+        computerScore++;
+        gameRound++;
+    }
 }
-console.log(playRound(playerSelection, computerSelection));
+
+console.log("This is the Player's selection: " + playerSelection);
+console.log("This is the Computer's selection: " + computerSelection);
+console.log("Player's new score is: " + playerScore);
+console.log("Computer's new score is: " + computerScore);
+console.log("You have now played " + gameRound + " rounds.");
+
+}
+
+function determineWinner(playerScore, computerScore) {
+    if (playerScore === computerScore) {
+        return "It's a TIE! GAME OVER"
+    }
+    else if (playerScore > computerScore) {
+        return "You WON! GAME OVER"
+    }
+    else {
+        return "You LOST! GAME OVER"
+    }
+}
+
+console.log(determineWinner(playerScore, computerScore));
